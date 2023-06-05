@@ -63,8 +63,7 @@
                                             data-toggle="modal" data-target="#ubahRiwayatModal"
                                             data-id="{{ $row->idr }}"><i class="fa fa-edit"></i></button>
                                             <button class="btn btn-xs"></button>
-                                            <button type="button" class="btn btn-danger"
-                                            onclick="deleteConfirmation('{{ $row->id }}', '{{ $row->nama_lengkap }}' )"><i class="fa fa-times"></i></button>
+                                            <a class="btn btn-xs btn-danger" href="delete/{{ $row->idr }}" onclick="return confirm('Apakah Anda Yakin Menghapus Data?')"><i class="fa fa-times"></i></a>
                                     </div>
                                     </div>
                                 </td>

@@ -76,7 +76,7 @@
                         <div class="col-md-6">
                         <div class="form-group">
                             <label for="NISN">NISN</label>
-                            <input type="number" class="form-control" name="NISN" id="NISN" required />
+                            <input type="number" class="form-control" name="NISN" id="NISN" maxlength="10" required />
                         </div>
                         <div class="form-group">
                             <label for="nama">Nama</label>

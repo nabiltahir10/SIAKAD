@@ -63,9 +63,7 @@
                                             data-toggle="modal" data-target="#ubahRiwayatModal"
                                             data-id="{{ $row->idr }}"><i class="fa fa-edit"></i></button>
                                             <button class="btn btn-xs"></button>
-                                            <button type="button" id="btn-edit-riwayat" class="btn btn-xs btn-success"
-                                            data-toggle="modal" data-target="#hapusRiwayatModal"
-                                            data-id="{{ $row->idr }}"><i class="fa fa-edit"></i></button>
+                                            <a class="btn btn-xs btn-danger" href="delete/{{ $row->idr }}" onclick="return confirm('Apakah Anda Yakin Menghapus Data?')"><i class="fa fa-times"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -179,57 +177,7 @@
         </div>
 
 
-        <div class="modal fade" id="hapusRiwayatModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ubah Data Riwayat</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="{{ route('guru.riwayat.delete') }}" enctype="multipart/form-data">
-                    @csrf
-                        @method('PATCH')
-                        <div class="form-group">
-                            <label for="edit-NISN">NISN</label>
-                            <input type="number" class="form-control" name="NISN" id="edit-NISN" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="edit-Nilai">Nilai</label>
-                            <input type="text" class="form-control" name="Nilai" id="edit-Nilai" required />
-                        </div>
-                        <div class="form-group">
-                        <label for="edit-Ketercapaian">Ketercapaian</label>
-                            <select name="Ketercapaian" id="edit-Ketercapaian" class="form-control">
-                                <option value="">Pilih Ketercapaian</option>
-                                <option value="Sangat Baik">Sangat Baik</option>
-                                <option value="Baik">Baik</option>
-                                <option value="Cukup">Cukup</option>
-                                <option value="Kurang">Kurang</option>
-                                
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="edit-Deskripsi">Deskripsi</label>
-                            <input type="text" class="form-control" name="Deskripsi" id="edit-Deskripsi" required />
-                        </div>
-                        </div>
-                        
-
-                <div class="modal-footer">
-                @foreach ($nilai as $row)
-                <input type="hidden" name="nilai_id" id="nilai_id" value="{{$row->id}}" />
-                @endforeach
-                <input type="hidden" name="id" id="edit-id" />
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Ubah</button>
-                    </form>
-                </div>
-            </div>
-        </div>
- 
+      
     @stop
    
 
@@ -254,49 +202,7 @@
             });
         });
 
-        function deleteConfirmation(npm, judul) {
-            swal.fire({
-                title: "Hapus?",
-                type: 'warning',
-                text: "Apakah anda yakin akan menghapus data buku dengan nama " + judul + "?!",
-
-                showCancelButton: !0,
-                confirmButtonText: "Ya, lakukan!",
-                cancelButtonText: "Tidak, batalkan!",
-                reverseButtons: !0
-            }).then(function(e) {
-
-                if (e.value === true) {
-                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-                    $.ajax({
-                        type: 'POST',
-                        url: "delete/" + npm,
-                        data: {
-                            _token: CSRF_TOKEN
-                        },
-                        dataType: 'JSON',
-                        success: function(results) {
-                            if (results.success === true) {
-                                swal.fire("Done!", results.message, "success");
-                                // refresh page after 2 seconds
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 1000);
-                            } else {
-                                swal.fire("Error!", results.message, "error");
-                            }
-                        }
-                    });
-
-                } else {
-                    e.dismiss;
-                }
-
-            }, function(dismiss) {
-                return false;
-            })
-        }
+       
   
         </script>
     @stop

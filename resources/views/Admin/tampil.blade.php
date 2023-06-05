@@ -36,7 +36,7 @@
                         <tr class="text-center">
                             <th>NO</th>
                             <th>NISN</th>
-                            <th>Nama</th>
+                            <th>Nama Mata Pelajaran</th>
                             <th>Nilai</th>
                         </tr>
                     </thead>

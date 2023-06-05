@@ -78,13 +78,12 @@ class GuruController extends Controller
         ->select('nama_lengkap','riwayat__nilais.NISN','riwayat__nilais.nilai','riwayat__nilais.id AS idr','nilais.id','riwayat__nilais.ketercapaian','riwayat__nilais.Deskripsi')
         ->where('nilais.id','=',$id)
         ->get();
-        $nilais = Nilai::where('id',$id)->get();
+        $nilais = Nilai::where('id','=',$id)->get();
         return view('Guru.riwayatNilai', compact('user','nilai','nilais','riwayat'));
     }
-
     public function submit_riwayat(Request $req){
         { $validate = $req->validate([
-            'NISN'=> 'required|unique:riwayat__nilais|min:10|max:10',
+            'NISN'=> 'required|min:10|max:10',
             'Nilai'=> 'required',
             'Ketercapaian'=> 'required',
             'Deskripsi'=> 'required',
@@ -98,13 +97,13 @@ class GuruController extends Controller
         $riwayat->nilai_id = $req->get('nilai_id');
         $riwayat->save();
         Session::flash('status', 'Tambah data Nilai berhasil!!!');
-        return redirect()->route('guru.nilai');
+        return redirect()->back();
     }}
     public function update_riwayat(Request $req)
     { 
         $riwayat= Riwayat_Nilai::find($req->get('id'));
         { $validate = $req->validate([
-            'NISN'=> 'required|unique:riwayat__nilais|min:10|max:10',
+            'NISN'=> 'required|min:10|max:10',
             'Nilai'=> 'required',
             'Ketercapaian'=> 'required',
             'Deskripsi'=> 'required',
@@ -117,7 +116,7 @@ class GuruController extends Controller
         $riwayat->nilai_id = $req->get('nilai_id');
         $riwayat->save();
         Session::flash('status', 'Ubah data Nilai berhasil!!!');
-        return redirect()->route('guru.nilai');
+        return redirect()->back();
     }
     }
     public function getDataRiwayat($id)
@@ -125,9 +124,9 @@ class GuruController extends Controller
         $riwayat = Riwayat_Nilai::find($id);
         return response()->json($riwayat);
     }
-    public function delete_riwayat($nilai)
+    public function delete_riwayat(Request $req,$nilai,$id)
     {
-        $riwayat = Riwayat_Nilai::find($nilai);
+        $riwayat = Riwayat_Nilai::where('id',$req->id)->first();
         $riwayat->delete();
 
         Session::flash('status', 'Hapus data Nilai berhasil!!!');

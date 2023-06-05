@@ -53,7 +53,7 @@
             @hasSection('auth_header')
                 <div class="card-header {{ config('adminlte.classes_auth_header', '') }}">
                     <h3 class="card-title float-none text-center">
-                    Already have an account?
+                    Sistem Informasi Akademik Sekolah
                     </h3>
                 </div>
             @endif

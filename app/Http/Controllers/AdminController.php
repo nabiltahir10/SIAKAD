@@ -796,7 +796,7 @@ class AdminController extends Controller
 
     public function submit_riwayat(Request $req){
         { $validate = $req->validate([
-            'NISN'=> 'required|unique:riwayat__nilais|min:10|max:10',
+            'NISN'=> 'required|min:10|max:10',
             'Nilai'=> 'required',
             'nilai_id'=> 'required',
         ]);

@@ -121,7 +121,7 @@ class WalikelasController extends Controller
 
     public function submit_riwayat(Request $req){
         { $validate = $req->validate([
-            'NISN'=> 'required|unique:riwayat__nilais|min:10|max:10',
+            'NISN'=> 'required|min:10|max:10',
             'Nilai'=> 'required',
             'Ketercapaian'=> 'required',
             'Deskripsi'=> 'required',
@@ -135,13 +135,13 @@ class WalikelasController extends Controller
         $riwayat->nilai_id = $req->get('nilai_id');
         $riwayat->save();
         Session::flash('status', 'Tambah data Nilai berhasil!!!');
-        return redirect()->route('walikelas.nilai');
+        return redirect()->back();
     }}
     public function update_riwayat(Request $req)
     { 
         $riwayat= Riwayat_Nilai::find($req->get('id'));
         { $validate = $req->validate([
-            'NISN'=> 'required|unique:riwayat__nilais|min:10|max:10',
+            'NISN'=> 'required|min:10|max:10',
             'Nilai'=> 'required',
             'Ketercapaian'=> 'required',
             'Deskripsi'=> 'required',
@@ -154,7 +154,7 @@ class WalikelasController extends Controller
         $riwayat->nilai_id = $req->get('nilai_id');
         $riwayat->save();
         Session::flash('status', 'Ubah data Nilai berhasil!!!');
-        return redirect()->route('walikelas.nilai');
+        return redirect()->back();
     }
     }
     public function getDataRiwayat($id)
@@ -162,15 +162,12 @@ class WalikelasController extends Controller
         $riwayat = Riwayat_Nilai::find($id);
         return response()->json($riwayat);
     }
-    public function delete_riwayat($nilai, $id)
+    public function delete_riwayat(Request $req,$nilai,$id)
     {
-        $riwayat = Riwayat_Nilai::where('nilai_id','=',$nilai,'AND','id','=',$id)->get();
+        $riwayat = Riwayat_Nilai::where('id',$req->id)->first();
         $riwayat->delete();
-        $success = true;
-        $message = "Data Riwayat Berhasil Dihapus";
-        return response()->json([
-            'success' => $success,
-            'message' => $message,
-        ]);
+
+        Session::flash('status', 'Hapus data Nilai berhasil!!!');
+        return redirect()->back();
     }
 }

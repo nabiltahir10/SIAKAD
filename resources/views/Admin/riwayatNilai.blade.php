@@ -23,7 +23,7 @@
                                 <td>:{{ $row->mapel->nama_mapel }}</td>
                             </tr>
                             <tr>
-                                <td>Mata Pelajaran</td>
+                                <td>Kelas</td>
                                 <td>:{{ $row->kelas->nama_kelas }}</>
                             </tr>
                         </tbody>
